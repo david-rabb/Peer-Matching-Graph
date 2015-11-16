@@ -21,13 +21,32 @@ If the instructor randomly assigns groups to students for evaluation (say by let
 * Algorithm performance is not a major concern considering that classroom sizes are typically < 100 students. However, the algorithm should attempt quadratic (_n_<sup>2</sup>) or better performance. 
 
 ### Graph Theory
-We can describe the classroom with a biparite graph _G = (E,V)_ with vertices for students _V_<sub>s</sub> and groups _V_<sub>g</sub>. Connecting the two types of vertices are two types of edges representing group membership _E_<sub>m</sub> and peer evaluators for each group _E_<sub>n</sub>. The total number of vertices is |_V_<sub>s</sub>| + |_V_<sub>g</sub>| where |_V_<sub>g</sub>| &le; |_V_<sub>s</sub>|. The total number of edges is |_E_<sub>m</sub>| + |_E_<sub>n</sub>| where |_E_<sub>n</sub>| = n |_V_<sub>s</sub>| (number of evaluations per student x number of students). 
+We can describe the classroom as a biparite graph _G = (E,V)_ with vertices for students _V_<sub>s</sub> and groups _V_<sub>g</sub>. Connecting the two types of vertices are two types of edges representing group membership _E_<sub>m</sub> and peer evaluators for each group _E_<sub>n</sub>. The total number of vertices is |_V_<sub>s</sub>| + |_V_<sub>g</sub>| where |_V_<sub>g</sub>| &le; |_V_<sub>s</sub>|. The total number of edges is |_E_<sub>m</sub>| + |_E_<sub>n</sub>| where |_E_<sub>n</sub>| = n |_V_<sub>s</sub>| (number of evaluations per student x number of students). 
 
 To setup the problem, each student _V_<sub>s</sub> is connected to one group _V_<sub>g</sub> as a group member via _E_<sub>m</sub>. We then need to find an arrangement of n edges for each student _E_<sub>n</sub> where _E_<sub>n</sub> does not intersect with _E_<sub>m</sub>.
 
 
 #### Theorem
+Given n, _V_<sub>s</sub>, _V_<sub>g</sub> and _E_<sub>m</sub> in a graph _G = (E,V)_, where s &ge; 2 and g &ge; 2, there exists at least one combination of edges _E_<sub>n</sub>.
+
 
 #### Proof
+By Induction on the number of students (s): 
+
+From the problem description, we can also deduce
+* g &le; s (there must be fewer or equal number of groups than students)
+* n &le; g-1 (each student can evaluated at most g-1) groups
+* n is fixed for each student, not for each group. Groups may receive varying numbers of evaluations.
+
+Let _P_ be the predicate: _Each student belongs to one group and will evaluate n other groups._
+
+**Base Case**: s = 2 (two students), implies g = 2 (two groups). Each student can belong to only one group and can evaluate only one group. 
+
+**Inductive Step**: Show that if P(s) is true then P(s+1) is true as well. Assume a graph with _s_ students and we add one more student. The new graph can be broken into two cases:
+* **Case 1:** The new student is added with **a new group**. Since the student cannot evaluate his own group, we can swap with an existing student. The existing student is guaranteed not to belong to the new group, and the new student is guaranteed not to belong to the any existing group. This can be repeated for each n evaluations.
+* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he doesn't need to evaluated his own group. To balance the number of evaluations received by each group, preferentially assign new students to the groups with the lowest degree.
+
+P(s+1) follows completing proof by induction.
+
 
 ## Algorithm
