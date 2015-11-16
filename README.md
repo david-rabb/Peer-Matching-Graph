@@ -44,9 +44,9 @@ Let _P_ be the predicate: _Each student belongs to one group and will evaluate n
 
 **Inductive Step**: Show that if P(s) is true then P(s+1) is true as well. Assume a graph with _s_ students and we add one more student. The new graph can be broken into two cases:
 * **Case 1:** The new student is added with **a new group**. Since the student cannot evaluate his own group, we can swap with an existing student. The existing student is guaranteed not to belong to the new group, and the new student is guaranteed not to belong to the any existing group. This can be repeated for each n evaluations.
-* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he doesn't need to evaluated his own group. To balance the number of evaluations received by each group, preferentially assign new students to the groups with the lowest degree.
+* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. To balance the number of evaluations received by each group, preferentially assign new students to the groups with the lowest degree.
 
-P(s+1) follows completing proof by induction.
+P(s+1) follows, completing proof by induction. &block;
 
 
 ## Algorithm
