@@ -67,7 +67,7 @@ P(s+1) follows, completing proof by induction. &block;
 
 ## Computation
 ### Visualizing the Problem
-As an example, we can represent a graph of ten students (s) in four groups (g), where each student is required to submit two evaluations (n). The matrices below have the four groups in rows, and ten students in columns. 
+As an example, we can represent a graph of ten students (_s_) in four groups (_g_), where each student is required to submit two evaluations (_n_). The matrices below have the four groups in rows, and ten students in columns. 
 
 Our algorithm will work as follows:
 
