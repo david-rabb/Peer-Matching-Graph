@@ -34,7 +34,7 @@ By Induction on the number of students (s):
 
 From the problem description, we can also deduce
 * g &le; s (there must be fewer or equal number of groups than students)
-* n &le; g-1 (each student can evaluate at most g-1 groups)
+* n &lt; g (each student can evaluate at most g-1 groups)
 * n is fixed for each student, not for each group. Groups may receive varying numbers of evaluations.
 
 Let _P_ be the predicate: _Each student belongs to one group and will evaluate n other groups._
@@ -49,7 +49,7 @@ P(s+1) follows, completing proof by induction. &block;
 
 
 #### Balanced Theorem
-Given a graph _G = (E,V)_ as described above, where the largest group has fewer members than the other groups combined, there exists a balanced combination of edges _E_<sub>n</sub> where each group vertex has the same approximate degree (_degree_<sub>max</sub> - _degree_<sub>min</sub> < 1).
+Given a graph _G = (E,V)_ as described above, where _n &lt; g-1_ (each student can evaluate at most _g-2_ groups) and the largest group has fewer members than the other groups combined, there exists a balanced combination of edges _E_<sub>n</sub> where each group vertex has the same approximate degree (_degree_<sub>max</sub> - _degree_<sub>min</sub> < 1). 
 
 To balance the number of evaluations received by each group, we preferentially assign new students to the groups with the lowest degree first. If s does not divide g (the number of students is not a multiple of the number of groups), then some groups will receive _degree_<sub>max</sub> evaluations and some will receive _degree_<sub>min</sub> evaluations where _degree_<sub>max</sub> - _degree_<sub>min</sub> = 1. Precisely _s mod g_ groups will have _degree_<sub>max</sub>.
 
@@ -59,6 +59,6 @@ _Following the predicate and base case above, we modify the inductive step as fo
 
 **Inductive Step**: Show that if P(s) is true then P(s+1) is true as well. Assume a balanced graph with _s_ students and we add one more student. The new graph can be broken into two cases:
 * **Case 1:** The new student is added with a new group. Since the student cannot evaluate his own group, we can swap with an existing student from a group with _degree_<sub>max</sub>. Peer evaluators should then be shifted from any _degree_<sub>max</sub> group until _degree_<sub>new</sub> = _degree_<sub>max</sub>, as long as the largest group has fewer members than the other groups combined. This can be repeated for each n evaluations.
-* **Case 2**: The new student is added to an existing group. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. Preferentially assign new students to the groups with the lowest degree first to maintain the balance.
+* **Case 2**: The new student is added to an existing group. Since n &lt; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. Preferentially assign new students to the groups with the lowest degree first to maintain the balance.
 
 P(s+1) follows, completing proof by induction. &block;
