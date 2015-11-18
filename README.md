@@ -62,3 +62,63 @@ _Following the predicate and base case above, we modify the inductive step as fo
 * **Case 2**: The new student is added to an existing group. Since n &lt; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. Preferentially assign new students to the groups with the lowest degree first to maintain the balance.
 
 P(s+1) follows, completing proof by induction. &block;
+
+
+
+## Computation
+### Visualizing the Problem
+As an example, we can represent a graph of ten students in four groups, where each student is required to submit two evaluations. The matrices below have the four groups in rows, and ten students in columns. 
+
+Our algorithm will work as follows:
+
+1. Populate the graph with group memberships. Mark these with an 'x' so we don't try to assign a student to evaluate his own group.
+
+    ```
+    Group 1| x - - - - - - - - - | 0
+    Group 2| - x x - - - - - - - | 0
+    Group 3| - - - x x x - - - - | 0
+    Group 4| - - - - - - x x x x | 0
+     - - - - - - - - - - - - - - - 
+    Total  | 0 0 0 0 0 0 0 0 0 0 
+    ``` 
+
+2.  Fill unassigned spots in the graph from left to right, top to bottom with until we reach the total number of evaluations (_n * s_), skipping over any students that are already giving two evaluations. At this point, group degrees are highly imbalanced, but student degrees have been locked at the desired target. 
+
+    ```
+    Group 1| x 1 1 1 1 1 1 1 1 1 | 9
+    Group 2| 1 x x 1 1 1 1 1 1 1 | 8
+    Group 3| 1 1 1 x x x - - - - | 3
+    Group 4| - - - - - - x x x x | 0
+     - - - - - - - - - - - - - - - 
+    Total  | 2 2 2 2 2 2 2 2 2 2 
+    ```
+
+3. Rebalance the graph by shifting a student from the group with most evaluations to the group with the least. Repeat up to (_n * s_) times or until the graph is balanced.
+
+    ```
+    Round 1
+    Group 1| x - 1 1 1 1 1 1 1 1 | 8
+    Group 2| 1 x x 1 1 1 1 1 1 1 | 8
+    Group 3| 1 1 1 x x x - - - - | 3
+    Group 4| - 1 - - - - x x x x | 1
+     - - - - - - - - - - - - - - - 
+    Total  | 2 2 2 2 2 2 2 2 2 2 
+
+    Round 2
+    Group 1| x - - 1 1 1 1 1 1 1 | 7
+    Group 2| 1 x x 1 1 1 1 1 1 1 | 8
+    Group 3| 1 1 1 x x x - - - - | 3
+    Group 4| - 1 1 - - - x x x x | 2
+     - - - - - - - - - - - - - - - 
+    Total  | 2 2 2 2 2 2 2 2 2 2 
+
+    ...
+    
+    Round 7 (Balanced)
+    Group 1| x - - 1 1 1 - - 1 1 | 5
+    Group 2| - x x - - 1 1 1 1 1 | 5
+    Group 3| 1 1 1 x x x 1 1 - - | 5
+    Group 4| 1 1 1 1 1 - x x x x | 5
+     - - - - - - - - - - - - - - - 
+    Total  | 2 2 2 2 2 2 2 2 2 2 
+    ```
