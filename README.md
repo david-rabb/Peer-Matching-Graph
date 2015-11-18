@@ -26,9 +26,8 @@ We can describe the classroom as a biparite graph _G = (E,V)_ with vertices for 
 To setup the problem, each student _V_<sub>s</sub> is connected to one group _V_<sub>g</sub> as a group member via _E_<sub>m</sub>. We then need to find an arrangement of n edges for each student _E_<sub>n</sub> where _E_<sub>n</sub> does not intersect with _E_<sub>m</sub>.
 
 
-#### Theorem
+#### Existence Theorem
 Given n, _V_<sub>s</sub>, _V_<sub>g</sub> and _E_<sub>m</sub> in a graph _G = (E,V)_, where s &ge; 2 and g &ge; 2, there exists at least one combination of edges _E_<sub>n</sub>.
-
 
 #### Proof
 By Induction on the number of students (s): 
@@ -43,10 +42,24 @@ Let _P_ be the predicate: _Each student belongs to one group and will evaluate n
 **Base Case**: s = 2 (two students), implies g = 2 (two groups). Each student can belong to only one group and can evaluate only one group. 
 
 **Inductive Step**: Show that if P(s) is true then P(s+1) is true as well. Assume a graph with _s_ students and we add one more student. The new graph can be broken into two cases:
-* **Case 1:** The new student is added with **a new group**. Since the student cannot evaluate his own group, we can swap with an existing student. The existing student is guaranteed not to belong to the new group, and the new student is guaranteed not to belong to the any existing group. This can be repeated for each n evaluations.
-* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. To balance the number of evaluations received by each group, preferentially assign new students to the groups with the lowest degree.
+* **Case 1:** The new student is added with **a new group**. Since the student cannot evaluate his own group, we can swap with any existing student. The existing student is guaranteed not to belong to the new group, and the new student is guaranteed not to belong to the any existing group. This can be repeated for each n evaluations.
+* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. 
 
 P(s+1) follows, completing proof by induction. &block;
 
 
-## Algorithm
+#### Balanced Theorem
+Given a graph _G = (E,V)_ as described above, where the largest group has fewer members than the other groups combined, there exists a balanced combination of edges _E_<sub>n</sub> where each group vertex has the same approximate degree (_degree_<sub>max</sub> - _degree_<sub>min</sub> < 1).
+
+To balance the number of evaluations received by each group, we preferentially assign new students to the groups with the lowest degree first. If s does not divide g (the number of students is not a multiple of the number of groups), then some groups will receive _degree_<sub>max</sub> evaluations and some will receive _degree_<sub>min</sub> evaluations where _degree_<sub>max</sub> - _degree_<sub>min</sub> = 1. Precisely _s mod g_ groups will have _degree_<sub>max</sub>.
+
+#### Proof
+By Induction on the number of students (s): 
+_Following the predicate and base case above, we modify the inductive step as follows:
+
+**Inductive Step**: Show that if P(s) is true then P(s+1) is true as well. Assume a balanced graph with _s_ students and we add one more student. The new graph can be broken into two cases:
+* **Case 1:** The new student is added with **a new group**. Since the student cannot evaluate his own group, we can swap with an existing student from a group with _degree_<sub>max</sub>. Peer evaluators should then be shifted from any _degree_<sub>max</sub> group until _degree_<sub>new</sub> = _degree_<sub>max</sub> - 1. This can be repeated for each n evaluations.
+* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. Preferentially assign new students to the groups with the lowest degree first to maintain the balance.
+
+P(s+1) follows, completing proof by induction. &block;
+
