@@ -34,7 +34,7 @@ By Induction on the number of students (s):
 
 From the problem description, we can also deduce
 * g &le; s (there must be fewer or equal number of groups than students)
-* n &le; g-1 (each student can evaluate at most g-1) groups
+* n &le; g-1 (each student can evaluate at most g-1 groups)
 * n is fixed for each student, not for each group. Groups may receive varying numbers of evaluations.
 
 Let _P_ be the predicate: _Each student belongs to one group and will evaluate n other groups._
