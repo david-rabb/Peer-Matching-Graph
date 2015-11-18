@@ -58,8 +58,7 @@ By Induction on the number of students (s):
 _Following the predicate and base case above, we modify the inductive step as follows:
 
 **Inductive Step**: Show that if P(s) is true then P(s+1) is true as well. Assume a balanced graph with _s_ students and we add one more student. The new graph can be broken into two cases:
-* **Case 1:** The new student is added with **a new group**. Since the student cannot evaluate his own group, we can swap with an existing student from a group with _degree_<sub>max</sub>. Peer evaluators should then be shifted from any _degree_<sub>max</sub> group until _degree_<sub>new</sub> = _degree_<sub>max</sub> - 1. This can be repeated for each n evaluations.
-* **Case 2**: The new student is added to **an existing group**. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. Preferentially assign new students to the groups with the lowest degree first to maintain the balance.
+* **Case 1:** The new student is added with a new group. Since the student cannot evaluate his own group, we can swap with an existing student from a group with _degree_<sub>max</sub>. Peer evaluators should then be shifted from any _degree_<sub>max</sub> group until _degree_<sub>new</sub> = _degree_<sub>max</sub> - 1, as long as the largest group has fewer members than the other groups combined. This can be repeated for each n evaluations.
+* **Case 2**: The new student is added to an existing group. Since n &le; g-1, we can assign simply assign the new student to n other groups and be guaranteed he won't need to evaluate his own group. Preferentially assign new students to the groups with the lowest degree first to maintain the balance.
 
 P(s+1) follows, completing proof by induction. &block;
-
