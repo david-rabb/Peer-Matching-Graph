@@ -122,3 +122,46 @@ Our algorithm will work as follows:
      - - - - - - - - - - - - - - - 
     Total  | 2 2 2 2 2 2 2 2 2 2 
     ```
+ 
+ 
+### Pseudo Code
+
+```
+ MATCH(S, G, n)
+   INITIALIZE(S, G)
+   t = n  * length(S)
+   while !REBALANCE(S, G) and i < t
+     i = i + 1
+ 
+ INITIALIZE(S, G, n)
+   t = n  * length(S)
+   count = 0
+   while count < t
+     x = i % length(S)
+     y = i / length(S)
+     if !ISMEMBER(G[y], S[x]) and !ISASSIGNED(G[y], S[x]) and length(GETASSIGNMENTS(S[x]))<n
+       ASSIGN(G[y], S[x])
+       count = count + 1
+
+ REBALANCE(S, G)
+   gMin = G[0]
+   gMax = G[0]
+   for each group in G
+     if length(GETASSIGNMENTS(group)) > gMax
+       gMax = group
+     else if length(GETASSIGNMENTS(group)) < gMin
+       gMin = group
+ 
+   if gMax = gMin or length(GETASSIGNMENTS(gMax))-length(GETASSIGNMENTS(gMin))<2
+     return TRUE
+ 
+   for each student in S
+     if ISMEMBER(gMax, student) or ISMEMBER(gMin, student) 
+       CONTINUE
+     if ISASSIGNED(gMax, student) and !ISASSIGNED(gMin, student)
+       UNASSIGN(gMax, student)
+       ASSIGN(gMin, student)
+       return FALSE
+ 
+   return TRUE
+```
