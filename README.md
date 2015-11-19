@@ -124,7 +124,7 @@ Our algorithm will work as follows:
     ```
  
  
-### Pseudo Code
+### Pseudocode
 
 ```
  MATCH(S, G, n)
